@@ -12,7 +12,6 @@ router.get('/articles',(req,res)=>{
             else{
                 res.status(200).send(data);
             }
-           
         });
     }else{
         res.status(500).json({message: "database is not ready"})
@@ -46,6 +45,32 @@ router.get('/articles/:Username',(req,res)=>{
     }
 })
 
+router.get('/articles_by_topic/:topic',(req,res)=>{
+    if(db){
+        Article.find({'topics.topic_name':req.params.topic},(err,data)=>{
+            if (err) res.status(500).send({messageErr: "can't find articles for topic:"+topic});
+            else{
+                res.status(200).send(data);
+            }
+        })
+    }else{
+        res.status(500).json({message: "database is not ready"})
+    }
+})
+
+// router.post('/articles_by_topic',(req,res)=>{
+//     if(db){
+//         Article.find({topics:req.body},(err,data)=>{
+//             if (err) res.status(500).send({messageErr: "can't find articles for topic:"+topic});
+//             else{
+//                 res.status(200).send(data);
+//             }
+//         })
+//     }else{
+//         res.status(500).json({message: "database is not ready"})
+//     }
+// })
+
 router.delete('/articles/:id',(req,res)=>{
     if(db){
         Article.findOneAndDelete(req.params.id, (err,data)=>{
@@ -63,7 +88,7 @@ router.put('/articles/:id',(req,res)=>{
     if(db){
         console.log(req.body)
         Article.findByIdAndUpdate(req.params.id,req.body, (err,data)=>{
-            if (err) res.status(500).send({messageErr: "can't delete article"});
+            if (err) res.status(500).send({messageErr: "can't update article"});
             else{
                 res.status(200).send(data);
             }
