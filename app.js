@@ -3,10 +3,14 @@ const app = express()
 const connectDb = require('./utils/connectDb')
 const user = require("./models/User")
 const routerArticles = require("./routes/Articles")
+const routerLogin = require("./routes/Login")
 const bodyParser = require('body-parser')
-
+const cors = require('cors')
 
 const db = connectDb();
+
+app.use(cors());
+app.use(express.json());
 
 app.get("/",(req,res)=>{
     if(!db){
@@ -26,7 +30,8 @@ app.use(
 app.use(bodyParser.json())
 
 app.use("/",routerArticles)
+app.use("/",routerLogin)
 
-app.listen(8080, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log("Server listening on port 8080...")
 })

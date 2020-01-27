@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Topic = require('./Topic')
 
 const ArticleSchema = mongoose.Schema({
     title: mongoose.Schema.Types.String,
