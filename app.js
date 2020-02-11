@@ -4,6 +4,7 @@ const connectDb = require('./utils/connectDb')
 const user = require("./models/User")
 const routerArticles = require("./routes/Articles")
 const routerLogin = require("./routes/Login")
+const routerImage = require("./routes/Image")
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json())
 
 app.use("/",routerArticles)
 app.use("/",routerLogin)
+app.use("/image",routerImage)
 
 app.listen(process.env.PORT, ()=>{
     console.log("Server listening on port 8080...")
