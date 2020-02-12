@@ -58,6 +58,19 @@ router.get('/articles_by_topic/:topic',(req,res)=>{
     }
 })
 
+router.get('/articles_by_id/:id',(req,res)=>{
+    if(db){
+        Article.find({'id':req.params.id},(err,data)=>{
+            if (err) res.status(500).send({messageErr: "can't find articles for topic:"+topic});
+            else{
+                res.status(200).send(data);
+            }
+        })
+    }else{
+        res.status(500).json({message: "database is not ready"})
+    }
+})
+
 // router.post('/articles_by_topic',(req,res)=>{
 //     if(db){
 //         Article.find({topics:req.body},(err,data)=>{
