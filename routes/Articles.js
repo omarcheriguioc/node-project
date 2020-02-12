@@ -60,8 +60,8 @@ router.get('/articles_by_topic/:topic',(req,res)=>{
 
 router.get('/articles_by_id/:id',(req,res)=>{
     if(db){
-        Article.find({'id':req.params.id},(err,data)=>{
-            if (err) res.status(500).send({messageErr: "can't find articles for topic:"+topic});
+        Article.findById(req.params.id,(err,data)=>{
+            if (err) res.status(500).send({messageErr: "can't find articles with id: "+req.params.id});
             else{
                 res.status(200).send(data);
             }
